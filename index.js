@@ -2,6 +2,7 @@ import 'dotenv/config'
 import express from 'express'
 import mongoose from 'mongoose'
 import cors from 'cors'
+import https from 'https'
 import userRoute from './routes/users.js'
 import productRoute from './routes/products.js'
 import orderRoute from './routes/orders.js'
@@ -53,3 +54,8 @@ app.all('*', (req, res) => {
 app.listen(process.env.PORT || 3000, () => {
   console.log('伺服器啟動')
 })
+if (process.env.RENDER) {
+  setInterval(() => {
+    https.get(process.env.RENDER)
+  }, 1000 * 60 * 5)
+}
